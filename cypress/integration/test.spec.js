@@ -37,5 +37,16 @@ context("Simple test", () => {
         cy.get("#transferMoneyButton").click();
 
         cy.get("#beginTransactionButton").should("exist");
+    });
+
+    it("Test money amount input cannot type anything except positive numbers", () => {
+        cy.visit('http://localhost:3000/');
+        cy.get("#formBasicEmail").type("admin");
+        cy.get("#formBasicPassword").type("admin");
+        cy.get(".btn").click();
+
+        cy.get("#beginTransactionButton").click();
+        cy.get("#test_selector").click();
+        cy.get("#moneyAmountInput").type("test").should("have.value", '');
     })
 });
