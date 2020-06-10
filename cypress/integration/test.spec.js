@@ -5,8 +5,8 @@ context("Simple test", () => {
         cy.visit('http://localhost:3000/');
 
 
-        cy.get("#formBasicEmail").type("admin");
-        cy.get("#formBasicPassword").type("admin");
+        cy.get("#formBasicEmail").type("Mariano");
+        cy.get("#formBasicPassword").type("123456");
 
         cy.get(".btn").click();
 
@@ -27,12 +27,12 @@ context("Simple test", () => {
 
     it("Successful transaction", () => {
         cy.visit('http://localhost:3000/');
-        cy.get("#formBasicEmail").type("admin");
-        cy.get("#formBasicPassword").type("admin");
+        cy.get("#formBasicEmail").type("Lautaro");
+        cy.get("#formBasicPassword").type("123456");
         cy.get(".btn").click();
 
         cy.get("#beginTransactionButton").click();
-        cy.get("#test_selector").click();
+        cy.get("#Mariano_selector").click();
         cy.get("#moneyAmountInput").type("1");
         cy.get("#transferMoneyButton").click();
 
@@ -41,12 +41,12 @@ context("Simple test", () => {
 
     it("Negative money is not transfered", () => {
         cy.visit('http://localhost:3000/');
-        cy.get("#formBasicEmail").type("admin");
-        cy.get("#formBasicPassword").type("admin");
+        cy.get("#formBasicEmail").type("Matias");
+        cy.get("#formBasicPassword").type("123456");
         cy.get(".btn").click();
 
         cy.get("#beginTransactionButton").click();
-        cy.get("#test_selector").click();
+        cy.get("#Mariano_selector").click();
         cy.get("#moneyAmountInput").type("-1");
         cy.get("#transferMoneyButton").click();
 
@@ -55,12 +55,12 @@ context("Simple test", () => {
 
     it("Test money amount input cannot type anything except positive numbers", () => {
         cy.visit('http://localhost:3000/');
-        cy.get("#formBasicEmail").type("admin");
-        cy.get("#formBasicPassword").type("admin");
+        cy.get("#formBasicEmail").type("Juan Cruz");
+        cy.get("#formBasicPassword").type("123456");
         cy.get(".btn").click();
 
         cy.get("#beginTransactionButton").click();
-        cy.get("#test_selector").click();
+        cy.get("#Mariano_selector").click();
         cy.get("#moneyAmountInput").type("test").should("have.value", '');
     })
 });
