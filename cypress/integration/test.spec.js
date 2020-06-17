@@ -2,37 +2,37 @@
 context("Simple test", () => {
 
     it("Successful Login Test", () => {
-        cy.visit('http://mercadopago.s3-website-us-east-1.amazonaws.com/');
+        cy.visit('http://localhost:3000/');
 
-
-        cy.get("#formBasicEmail").type("Mariano");
+        cy.get("#formBasicEmail").type("user1");
         cy.get("#formBasicPassword").type("123456");
 
-        cy.get(".btn").click();
+        cy.get("#loginButton").click();
 
         cy.get(".navbar").should("exist")
     });
 
     it("Unsuccessful Login Test", () => {
-        cy.visit('http://mercadopago.s3-website-us-east-1.amazonaws.com/');
+        cy.visit('http://localhost:3000/');
 
 
         cy.get("#formBasicEmail").type("will not pass");
         cy.get("#formBasicPassword").type("1234");
 
-        cy.get(".btn").click();
+        cy.get("#loginButton").click();
 
         cy.get("#errorMessage").should("exist").and("have.text", "An error ocurred when trying to login")
     });
 
     it("Successful transaction", () => {
-        cy.visit('http://mercadopago.s3-website-us-east-1.amazonaws.com/');
-        cy.get("#formBasicEmail").type("Lautaro");
+        cy.visit('http://localhost:3000/');
+        cy.get("#formBasicEmail").type("user1");
         cy.get("#formBasicPassword").type("123456");
-        cy.get(".btn").click();
+        cy.get("#loginButton").click();
 
         cy.get("#beginTransactionButton").click();
-        cy.get("#Mariano_selector").click();
+        cy.get("#userSelector").type("user2");
+        cy.get("#user2_selector").click();
         cy.get("#moneyAmountInput").type("1");
         cy.get("#transferMoneyButton").click();
 
@@ -40,13 +40,14 @@ context("Simple test", () => {
     });
 
     it("Negative money is not transfered", () => {
-        cy.visit('http://mercadopago.s3-website-us-east-1.amazonaws.com/');
-        cy.get("#formBasicEmail").type("Matias");
+        cy.visit('http://localhost:3000/');
+        cy.get("#formBasicEmail").type("user1");
         cy.get("#formBasicPassword").type("123456");
-        cy.get(".btn").click();
+        cy.get("#loginButton").click();
 
         cy.get("#beginTransactionButton").click();
-        cy.get("#Mariano_selector").click();
+        cy.get("#userSelector").type("user2");
+        cy.get("#user2_selector").click();
         cy.get("#moneyAmountInput").type("-1");
         cy.get("#transferMoneyButton").click();
 
@@ -54,13 +55,14 @@ context("Simple test", () => {
     });
 
     it("Test money amount input cannot type anything except positive numbers", () => {
-        cy.visit('http://mercadopago.s3-website-us-east-1.amazonaws.com/');
-        cy.get("#formBasicEmail").type("Juan Cruz");
+        cy.visit('http://localhost:3000/');
+        cy.get("#formBasicEmail").type("user1");
         cy.get("#formBasicPassword").type("123456");
-        cy.get(".btn").click();
+        cy.get("#loginButton").click();
 
         cy.get("#beginTransactionButton").click();
-        cy.get("#Mariano_selector").click();
+        cy.get("#userSelector").type("user2");
+        cy.get("#user2_selector").click();
         cy.get("#moneyAmountInput").type("test").should("have.value", '');
     })
 });
